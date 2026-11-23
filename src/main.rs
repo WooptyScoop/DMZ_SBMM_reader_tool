@@ -163,12 +163,15 @@ fn main() {
         return;
     }
 
-    let spec = AppSpec::new(
-        "DMZ SBMM Reader",
-        (980.0, 720.0),
-        app::State::default,
-        app::view,
-    );
+    let spec = AppSpec {
+        min_size: Some((760.0, 600.0)),
+        ..AppSpec::new(
+            "DMZ SBMM Reader",
+            (980.0, 720.0),
+            app::State::default,
+            app::view,
+        )
+    };
 
     rune::App::new(spec)
         .titlebar(rune::Titlebar::new(40.0))

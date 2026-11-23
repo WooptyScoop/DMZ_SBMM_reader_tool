@@ -269,11 +269,11 @@ fn scan_view(s: &State, p: &Palette) -> El {
         )
         .child(
             row().key("scan-actions").w_full().gap(space::S2).center_y().flex_wrap()
-                .child(secondary_btn("scan-detect", "Detect paths", &icons::DETECT, p, detect_paths).grow(1.0).min_w(104.0))
-                .child(primary_btn("scan-now", "Scan now", &icons::PLAY, p, do_scan).grow(1.0).min_w(96.0))
-                .child(toggle_btn("skip-bin", "Skip binary", s.skip_binary, p, |st| st.skip_binary = !st.skip_binary).grow(1.0).min_w(106.0))
-                .child(toggle_btn("no-limit", "No size limit", s.no_size_limit, p, |st| st.no_size_limit = !st.no_size_limit).grow(1.0).min_w(118.0))
-                .child(secondary_btn("scan-zip", "Export ZIP", &icons::EXPORT, p, export_scan_zip).grow(1.0).min_w(108.0)),
+                .child(secondary_btn("scan-detect", "Detect paths", &icons::DETECT, p, detect_paths).w_frac(0.19).min_w(104.0))
+                .child(primary_btn("scan-now", "Scan now", &icons::PLAY, p, do_scan).w_frac(0.19).min_w(96.0))
+                .child(toggle_btn("skip-bin", "Skip binary", s.skip_binary, p, |st| st.skip_binary = !st.skip_binary).w_frac(0.19).min_w(106.0))
+                .child(toggle_btn("no-limit", "No size limit", s.no_size_limit, p, |st| st.no_size_limit = !st.no_size_limit).w_frac(0.19).min_w(118.0))
+                .child(secondary_btn("scan-zip", "Export ZIP", &icons::EXPORT, p, export_scan_zip).w_frac(0.19).min_w(108.0)),
         )
         .child(
             row().key("scan-status").gap(9.0).center_y()
@@ -326,13 +326,13 @@ fn probe_view(s: &State, p: &Palette) -> El {
                         .child(ui::eyebrow("WORKFLOW", p))
                         .child(text("steps run in order").font(ui::CAPTION).color(p.muted)))
                     .child(row().key("workflow-steps").w_full().gap(space::S2).center_y().flex_wrap()
-                        .child(step_btn("qstart", "1", "Queue started", p, probe_queue_start).grow(1.0).min_w(150.0))
-                        .child(step_btn("qend", "2", "Match found", p, probe_queue_end).grow(1.0).min_w(140.0))
-                        .child(step_btn("mend", "3", "Match ended", p, probe_match_end).grow(1.0).min_w(140.0)))
+                        .child(step_btn("qstart", "1", "Queue started", p, probe_queue_start).w_frac(0.32).min_w(150.0))
+                        .child(step_btn("qend", "2", "Match found", p, probe_queue_end).w_frac(0.32).min_w(140.0))
+                        .child(step_btn("mend", "3", "Match ended", p, probe_match_end).w_frac(0.32).min_w(140.0)))
                     .child(ui::hairline(p))
                     .child(row().key("workflow-actions").w_full().gap(space::S2).center_y().flex_wrap()
-                        .child(primary_btn("pstop", "Stop & report", &icons::STOP, p, probe_stop).grow(1.0).min_w(140.0))
-                        .child(secondary_btn("pzip", "Export ZIP", &icons::EXPORT, p, export_probe_zip).grow(1.0).min_w(120.0))
+                        .child(primary_btn("pstop", "Stop & report", &icons::STOP, p, probe_stop).w_frac(0.48).min_w(140.0))
+                        .child(secondary_btn("pzip", "Export ZIP", &icons::EXPORT, p, export_probe_zip).w_frac(0.48).min_w(120.0))
                         .child(text("writes a report when you stop").font(ui::CAPTION).color(p.muted).wrap()))),
         )
         .child(
