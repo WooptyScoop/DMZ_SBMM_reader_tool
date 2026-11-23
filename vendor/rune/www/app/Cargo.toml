@@ -1,0 +1,25 @@
+[package]
+name = "rune-www"
+version = "0.0.1"
+edition.workspace = true
+license.workspace = true
+description = "Rune's home page, drawn by Rune."
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "rune-www"
+path = "src/main.rs"
+
+[dependencies]
+rune = { workspace = true }
+rune-kit = { workspace = true, default-features = true }
+rune-motion = { workspace = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = { workspace = true }
+
+[lints]
+workspace = true

@@ -1,0 +1,17 @@
+[package]
+name = "web-showcase"
+version = "0.0.1"
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+rune = { workspace = true, default-features = true, features = ["keys-overlay"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = { workspace = true }
+
+[lints]
+workspace = true

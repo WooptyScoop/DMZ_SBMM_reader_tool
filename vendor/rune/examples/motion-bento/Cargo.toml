@@ -1,0 +1,14 @@
+[package]
+name = "motion-bento"
+version = "0.0.1"
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+rune = { workspace = true, default-features = true, features = ["keys-overlay"] }
+rune-kit = { workspace = true, default-features = true }
+motion-bento-chaos = { path = "chaos" }
+
+[lints]
+workspace = true
