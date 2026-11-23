@@ -268,13 +268,12 @@ fn scan_view(s: &State, p: &Palette) -> El {
                 ),
         )
         .child(
-            row().key("scan-actions").gap(space::S2).center_y()
-                .child(secondary_btn("scan-detect", "Detect paths", &icons::DETECT, p, detect_paths))
-                .child(primary_btn("scan-now", "Scan now", &icons::PLAY, p, do_scan))
-                .child(toggle_btn("skip-bin", "Skip binary", s.skip_binary, p, |st| st.skip_binary = !st.skip_binary))
-                .child(toggle_btn("no-limit", "No size limit", s.no_size_limit, p, |st| st.no_size_limit = !st.no_size_limit))
-                .child(el().key("actions-fill").grow(1.0))
-                .child(secondary_btn("scan-zip", "Export ZIP", &icons::EXPORT, p, export_scan_zip)),
+            row().key("scan-actions").w_full().gap(space::S2).center_y().flex_wrap()
+                .child(secondary_btn("scan-detect", "Detect paths", &icons::DETECT, p, detect_paths).grow(1.0).min_w(104.0))
+                .child(primary_btn("scan-now", "Scan now", &icons::PLAY, p, do_scan).grow(1.0).min_w(96.0))
+                .child(toggle_btn("skip-bin", "Skip binary", s.skip_binary, p, |st| st.skip_binary = !st.skip_binary).grow(1.0).min_w(106.0))
+                .child(toggle_btn("no-limit", "No size limit", s.no_size_limit, p, |st| st.no_size_limit = !st.no_size_limit).grow(1.0).min_w(118.0))
+                .child(secondary_btn("scan-zip", "Export ZIP", &icons::EXPORT, p, export_scan_zip).grow(1.0).min_w(108.0)),
         )
         .child(
             row().key("scan-status").gap(9.0).center_y()
@@ -311,7 +310,7 @@ fn probe_view(s: &State, p: &Palette) -> El {
         .child(ui::page_header("Match probe", "Record read-only process, network and file metadata around a match.", p))
         .child(
             ui::card("probe-status-card", p).px(16.0).py(14.0)
-                .child(row().key("probe-status-row").w_full().center_y().justify_between()
+                .child(row().key("probe-status-row").w_full().center_y().justify_between().flex_wrap().gap(space::S2)
                     .child(col().key("probe-status-text").gap(5.0)
                         .child(ui::eyebrow("CURRENT MATCH", p))
                         .child(text(s.probe_status.clone()).font(type_::TITLE).color(p.text)))
@@ -326,16 +325,15 @@ fn probe_view(s: &State, p: &Palette) -> El {
                     .child(row().key("workflow-head").w_full().justify_between().center_y()
                         .child(ui::eyebrow("WORKFLOW", p))
                         .child(text("steps run in order").font(ui::CAPTION).color(p.muted)))
-                    .child(row().key("workflow-steps").w_full().gap(space::S2).center_y()
-                        .child(step_btn("qstart", "1", "Queue started", p, probe_queue_start))
-                        .child(step_btn("qend", "2", "Match found", p, probe_queue_end))
-                        .child(step_btn("mend", "3", "Match ended", p, probe_match_end)))
+                    .child(row().key("workflow-steps").w_full().gap(space::S2).center_y().flex_wrap()
+                        .child(step_btn("qstart", "1", "Queue started", p, probe_queue_start).grow(1.0).min_w(150.0))
+                        .child(step_btn("qend", "2", "Match found", p, probe_queue_end).grow(1.0).min_w(140.0))
+                        .child(step_btn("mend", "3", "Match ended", p, probe_match_end).grow(1.0).min_w(140.0)))
                     .child(ui::hairline(p))
-                    .child(row().key("workflow-actions").w_full().gap(space::S2).center_y()
-                        .child(primary_btn("pstop", "Stop & report", &icons::STOP, p, probe_stop))
-                        .child(secondary_btn("pzip", "Export ZIP", &icons::EXPORT, p, export_probe_zip))
-                        .child(el().key("workflow-fill").grow(1.0))
-                        .child(text("writes a report when you stop").font(ui::CAPTION).color(p.muted)))),
+                    .child(row().key("workflow-actions").w_full().gap(space::S2).center_y().flex_wrap()
+                        .child(primary_btn("pstop", "Stop & report", &icons::STOP, p, probe_stop).grow(1.0).min_w(140.0))
+                        .child(secondary_btn("pzip", "Export ZIP", &icons::EXPORT, p, export_probe_zip).grow(1.0).min_w(120.0))
+                        .child(text("writes a report when you stop").font(ui::CAPTION).color(p.muted).wrap()))),
         )
         .child(
             ui::card("probe-log-card", p).grow(1.0).min_h(140.0).px(14.0).py(12.0)
@@ -354,11 +352,11 @@ fn probe_view(s: &State, p: &Palette) -> El {
 fn footer_note(msg: &str, p: &Palette) -> El {
     row().key("footer-note").gap(8.0).center_y()
         .child(icon(&icons::SHIELD, 13.0).color(p.muted))
-        .child(text(msg.to_string()).font(ui::CAPTION).color(p.muted))
+        .child(text(msg.to_string()).font(ui::CAPTION).color(p.muted).wrap())
 }
 
 fn primary_btn(key: &str, label: &str, glyph: &'static Icon, p: &Palette, on: fn(&mut State)) -> El {
-    row().key(key.to_string()).h(32.0).px(13.0).gap(8.0).center_y().radius(6.0)
+    row().key(key.to_string()).h(32.0).px(13.0).gap(8.0).center().radius(6.0)
         .fill(p.accent).hover(p.accent).press(p.accent)
         .on_press(on)
         .child(icon(glyph, 14.0).color(p.accent_text))
@@ -366,7 +364,7 @@ fn primary_btn(key: &str, label: &str, glyph: &'static Icon, p: &Palette, on: fn
 }
 
 fn secondary_btn(key: &str, label: &str, glyph: &'static Icon, p: &Palette, on: fn(&mut State)) -> El {
-    row().key(key.to_string()).h(32.0).px(13.0).gap(8.0).center_y().radius(6.0)
+    row().key(key.to_string()).h(32.0).px(13.0).gap(8.0).center().radius(6.0)
         .fill(p.card).border(1.0, p.border_strong).hover(p.hover)
         .on_press(on)
         .child(icon(glyph, 14.0).color(p.secondary))
@@ -374,7 +372,7 @@ fn secondary_btn(key: &str, label: &str, glyph: &'static Icon, p: &Palette, on: 
 }
 
 fn toggle_btn(key: &str, label: &str, on: bool, p: &Palette, f: fn(&mut State)) -> El {
-    row().key(key.to_string()).h(32.0).px(11.0).gap(8.0).center_y().radius(6.0)
+    row().key(key.to_string()).h(32.0).px(11.0).gap(8.0).center().radius(6.0)
         .fill(p.card).border(1.0, if on { p.accent_soft } else { p.border }).hover(p.hover)
         .on_press(f)
         .child(ui::dot(if on { p.accent } else { p.muted }, 6.0))
@@ -382,7 +380,7 @@ fn toggle_btn(key: &str, label: &str, on: bool, p: &Palette, f: fn(&mut State)) 
 }
 
 fn step_btn(key: &str, num: &str, label: &str, p: &Palette, on: fn(&mut State)) -> El {
-    row().key(key.to_string()).h(36.0).px(12.0).gap(9.0).center_y().radius(6.0)
+    row().key(key.to_string()).h(36.0).px(12.0).gap(9.0).center().radius(6.0)
         .fill(p.card).border(1.0, p.border_strong).hover(p.hover)
         .on_press(on)
         .child(

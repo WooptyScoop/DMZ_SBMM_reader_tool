@@ -71,7 +71,7 @@ pub fn hairline(p: &Palette) -> rune::El {
 
 /// Muted one-line hint beneath a control.
 pub fn hint(s: &str, p: &Palette) -> rune::El {
-    text(s.to_string()).font(CAPTION).color(p.muted)
+    text(s.to_string()).font(CAPTION).color(p.muted).wrap()
 }
 
 /// Uppercase section label, e.g. `FOLDERS TO SCAN`.
@@ -83,7 +83,7 @@ pub fn eyebrow(s: &str, p: &Palette) -> rune::El {
 pub fn page_header(title: &str, subtitle: &str, p: &Palette) -> rune::El {
     col().key("page-header").gap(4.0)
         .child(text(title.to_string()).font(PAGE_TITLE).color(p.text))
-        .child(text(subtitle.to_string()).font(type_::BODY).color(p.secondary))
+        .child(text(subtitle.to_string()).font(type_::BODY).color(p.secondary).wrap())
 }
 
 /// A bordered, rounded surface. Callers add the content.
